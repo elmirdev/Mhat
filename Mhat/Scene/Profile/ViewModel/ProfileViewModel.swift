@@ -8,10 +8,11 @@
 import Foundation
 import UIKit
 
-struct ProfileViewModel{
+class ProfileViewModel {
     
-    private let user: User
+    var user = User()
     
+    // MARK: - Returned Datas
     var editProfileAddFriendButtonTitle: String {
         if user.isCurrentUser {
             return "Edit Profile"
@@ -52,7 +53,14 @@ struct ProfileViewModel{
         return user.isCurrentUser ? .systemRed : .lightGray
     }
     
-    init(user: User) {
-        self.user = user
+    // MARK: - Funcs
+    func checkUserIsFriendOrIsRequest(completion: @escaping(()->())) {
+        Service.shared.checkUserIsFriend(uid: user.uid) { isFriend in
+            self.user.isFriend = isFriend
+            NotificationService.shared.checkUserIsRequested(uid: self.user.uid) { isRequested in
+                self.user.isRequested = isRequested
+                completion()
+            }
+        }
     }
 }

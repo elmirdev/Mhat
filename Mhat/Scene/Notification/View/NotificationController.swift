@@ -89,7 +89,8 @@ class NotificationController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = notifications[indexPath.row].user
-        let controller = ProfileController(user: user)
+        let controller = ProfileController()
+        controller.viewModel.user = user
         navigationController?.pushViewController(controller, animated: true)
     }
 }

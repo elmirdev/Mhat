@@ -17,10 +17,8 @@ protocol ProfileControllerDelegate: AnyObject {
 class ProfileController: UIViewController {
     
     // MARK: - Properties
-    
-    private var user: User {
-        didSet { configure() }
-    }
+        
+    let viewModel = ProfileViewModel()
     
     weak var delegate: ProfileControllerDelegate?
     
@@ -78,23 +76,13 @@ class ProfileController: UIViewController {
     }()
     
     // MARK: - Lifecycle
-    
-    init(user: User) {
-        self.user = user
-        super.init(nibName: nil, bundle: nil)
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
         configureUI()
         configure()
-        checkUserIsFriend()
-        checkUserIsRequested()
+        checkUserIsFriendOrIsRequest()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -105,11 +93,12 @@ class ProfileController: UIViewController {
     // MARK: - Selectors
     
     @objc func handleEditProfileAddFirend() {
+        let user = viewModel.user
         if user.isFriend && !user.isCurrentUser {
             let alert = UIAlertController(title: nil, message: "Are you sure you want to remove from friends?", preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "Remove from Friends", style: .destructive, handler: { _ in
                 self.dismiss(animated: true) {
-                    self.delegate?.handleRemoveFriend(self.user)
+                    self.delegate?.handleRemoveFriend(user)
                 }
             }))
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
@@ -122,12 +111,14 @@ class ProfileController: UIViewController {
                     print("DEBUG: Error is \(error.localizedDescription)")
                     return
                 }
-                self.user.isRequested = true
+                self.viewModel.user.isRequested = true
             }
         }
     }
     
     @objc func handleMessageLogout() {
+        let user = viewModel.user
+        
         if user.isCurrentUser {
             let alert = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .actionSheet)
             alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
@@ -149,20 +140,12 @@ class ProfileController: UIViewController {
         
     // MARK: - API
     
-    func checkUserIsFriend() {
-        Service.shared.checkUserIsFriend(uid: user.uid) { isFriend in
-            self.user.isFriend = isFriend
-            print("DEBUG: User isfriend- \(self.user.isFriend)")
+    func checkUserIsFriendOrIsRequest() {
+        viewModel.checkUserIsFriendOrIsRequest {
+            self.configureAfterDataFetched()
         }
     }
-    
-    func checkUserIsRequested() {
-        NotificationService.shared.checkUserIsRequested(uid: user.uid) { isRequested in
-            self.user.isRequested = isRequested
-            print("DEBUG: User isrequest- \(self.user.isRequested)")
-        }
-    }
-    
+        
     // MARK: - Helpers
     
     func configureUI() {
@@ -201,29 +184,21 @@ class ProfileController: UIViewController {
     }
     
     func configure() {
-        guard let url = URL(string: user.profileImageUrl) else { return }
-        let viewModel = ProfileViewModel(user: user)
+        guard let url = URL(string: viewModel.user.profileImageUrl) else { return }
         
         profileImageView.sd_setImage(with: url)
-        fullnameLabel.text = user.fullname
-        usernameLabel.text = user.username
         
+        fullnameLabel.text = viewModel.user.fullname
+        usernameLabel.text = viewModel.user.username
+    }
+    
+    func configureAfterDataFetched() {
         messageLogoutButton.isHidden = viewModel.shouldShowMessageButton
         messageLogoutButton.setTitle(viewModel.messageLogoutButtonTitle, for: .normal)
         messageLogoutButton.backgroundColor = viewModel.messageLogoutButtonColor
         
         editProfileAddFriendButton.setTitle(viewModel.editProfileAddFriendButtonTitle, for: .normal)
-    }
-    
-    func buttonMaker(title: String, titleColor: UIColor) -> UIButton {
-        let button = UIButton(type: .system)
-        button.setTitle(title, for: .normal)
-        button.setTitleColor(titleColor, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
-        button.backgroundColor = .customBlue
-        button.setHeight(height: 48)
-        button.layer.cornerRadius = 10
-        return button
+        editProfileAddFriendButton.backgroundColor = .customBlue
     }
 }
 
@@ -232,5 +207,20 @@ class ProfileController: UIViewController {
 extension ProfileController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
+    }
+}
+
+// MARK: - buttonMaker func
+
+extension ProfileController {
+    func buttonMaker(title: String, titleColor: UIColor) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.setTitleColor(titleColor, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.backgroundColor = .lightGray
+        button.setHeight(height: 48)
+        button.layer.cornerRadius = 10
+        return button
     }
 }

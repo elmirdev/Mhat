@@ -111,6 +111,22 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		EF5B993328FDE71800318B7B /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EFC322F02862366500EDCFCD /* ProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EF5B993428FDE72500318B7B /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EFC322EE28622B7300EDCFCD /* ProfileController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EF8E806628FB621B00401B0B /* Login */ = {
 			isa = PBXGroup;
 			children = (
@@ -168,7 +184,8 @@
 		EF8E806C28FB628B00401B0B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				EFC322EE28622B7300EDCFCD /* ProfileController.swift */,
+				EF5B993428FDE72500318B7B /* View */,
+				EF5B993328FDE71800318B7B /* ViewModel */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -372,7 +389,6 @@
 			children = (
 				EFD0A8E4285F67E10029E612 /* AnnotationViewModel.swift */,
 				EF3E841D285FDBA600196884 /* MessageViewModel.swift */,
-				EFC322F02862366500EDCFCD /* ProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";

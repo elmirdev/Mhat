@@ -193,7 +193,8 @@ extension MapController: MKMapViewDelegate {
             
         self.viewModel.mapViewDidSelect(mapView: mapView, view: view) { user in
             if user.uid == currentUid {
-                let controller = ProfileController(user: user)
+                let controller = ProfileController()
+                controller.viewModel.user = user
                 controller.delegate = self
                 navigationController?.pushViewController(controller, animated: true)
             } else {

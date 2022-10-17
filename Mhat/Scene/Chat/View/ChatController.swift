@@ -88,7 +88,8 @@ class ChatController: UICollectionViewController {
     }
     
     @objc func showProfile() {
-        let controller = ProfileController(user: user)
+        let controller = ProfileController()
+        controller.viewModel.user = user
         controller.delegate = delegate
         navigationController?.pushViewController(controller, animated: true)
     }

@@ -116,7 +116,8 @@ extension SearchUserController {
 extension SearchUserController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
-        let controller = ProfileController(user: user)
+        let controller = ProfileController()
+        controller.viewModel.user = user
         controller.delegate = delegate
         navigationController?.pushViewController(controller, animated: true)
     }
