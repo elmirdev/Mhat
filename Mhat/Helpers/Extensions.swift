@@ -8,6 +8,7 @@
 import UIKit
 import JGProgressHUD
 
+// MARK: - UIView
 extension UIView {
     func anchor(top: NSLayoutYAxisAnchor? = nil,
                 left: NSLayoutXAxisAnchor? = nil,
@@ -100,6 +101,7 @@ extension UIView {
     }
 }
 
+// MARK: - UIColor
 extension UIColor {
     static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
         return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
@@ -111,6 +113,7 @@ extension UIColor {
     static let customBlue = UIColor.rgb(red: 85, green: 128, blue: 246)
 }
 
+// MARK: - UIViewController
 extension UIViewController {
     static let hud = JGProgressHUD(style: .dark)
     
@@ -177,5 +180,3 @@ extension UIViewController {
                       height: size.height + topInset + bottomInset)
     }
 }
-
-

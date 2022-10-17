@@ -17,23 +17,10 @@ class MapController: UIViewController {
     // MARK: - Properties
     
     private let mapView = MKMapView()
-    private var locationManager = CLLocationManager()
-    private var userLocation = CLLocationCoordinate2D()
+    private let locationManager = CLLocationManager()
 
-    private var userAnnotation = MKPointAnnotation()
-    
-    private var annotations = [MKPointAnnotation]() {
-        didSet { configureMapView() }
-    }
-        
-    private var users: [User]? {
-        didSet {
-            fetchLocations()
-        }
-    }
-    
-    private var isUserLocate = false
-        
+    let viewModel = MapViewModel()
+            
     private let notificationCountLabel: UILabel = {
         let label = UILabel()
         label.backgroundColor = .systemRed
@@ -82,7 +69,6 @@ class MapController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        //fetchUser()
         fetchFriends()
         fetchNotificationsCount()
     }
@@ -90,9 +76,9 @@ class MapController: UIViewController {
     // MARK: - Selectors
     
     @objc func updateMyLocation() {
-        let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-        let region = MKCoordinateRegion(center: userLocation, span: span)
-        mapView.setRegion(region, animated: true)
+        viewModel.updateMyLocation { region in
+            self.mapView.setRegion(region, animated: true)
+        }
     }
     
     @objc func showNotificationController() {
@@ -110,60 +96,28 @@ class MapController: UIViewController {
         present(nav, animated: true, completion: nil)
     }
     
+    @objc func logOut() {
+        viewModel.logOut()
+        authenticateUserAndConfigureUI()
+    }
+    
     // MARK: - API
     
-    @objc func logOut() {
-        do {
-            try Auth.auth().signOut()
-            authenticateUserAndConfigureUI()
-        } catch {
-            print("DEBUG: Error..")
-        }
-    }
-    
     func fetchFriends() {
-        Service.shared.fetchFriends { users in
-            self.users = users
+        viewModel.fetchFriends {
+            self.configureMapView()
         }
     }
-    
-    func fetchLocations() {
-        users?.forEach({ user in
-            guard let location = user.location else { return }
-            let annotation = MKPointAnnotation()
-            annotation.coordinate = location
-            annotation.subtitle = user.uid
-            let i = annotations.firstIndex(where: { $0.subtitle == user.uid })
-            if i == nil {
-//                let allAnnotations = mapView.annotations
-//                mapView.removeAnnotations(allAnnotations)
-                self.annotations.append(annotation)
-                
-            } else {
-                UIView.animate(withDuration: 0.5) {
-                    self.annotations[i!].coordinate = location
-                }
-            }
-        })
-    }
-    
+        
     func updateLocation() {
-        guard Auth.auth().currentUser?.uid != nil else { return }
-        Service.shared.updateLocation(coordinate: userLocation) { error in
-            if let error = error {
-                print("DEBUG: Error qaqo \(error.localizedDescription)")
-            }
-        }
+        viewModel.updateLocation()
     }
     
     func fetchNotificationsCount() {
         notificationCountLabel.isHidden = true
-        NotificationService.shared.fetchNotificationsCount { notificationCount in
-            if notificationCount != 0 {
-                self.notificationCountLabel.isHidden = false
-                print("DEBUG: qaqam count \(notificationCount)")
-                self.notificationCountLabel.text = "\(notificationCount)"
-            }
+        viewModel.fetchNotificationsCount { notificationCount in
+            self.notificationCountLabel.isHidden = false
+            self.notificationCountLabel.text = "\(notificationCount)"
         }
     }
     
@@ -180,7 +134,6 @@ class MapController: UIViewController {
             }
         } else {
             configureMapView()
-            //fetchUser()
             fetchFriends()
             fetchNotificationsCount()
         }
@@ -194,7 +147,7 @@ class MapController: UIViewController {
         view.addSubview(mapView)
         mapView.addConstraintsToFillView(view)
         
-        mapView.addAnnotations(annotations)
+        mapView.addAnnotations(viewModel.annotations)
         
         locationManager.desiredAccuracy = kCLLocationAccuracyBest
         locationManager.requestWhenInUseAuthorization()
@@ -219,10 +172,10 @@ class MapController: UIViewController {
     
     func refreshMapView() {
         let allAnnotations = self.mapView.annotations
-        self.mapView.removeAnnotations(allAnnotations)
-        self.users?.removeAll()
-        self.annotations.removeAll()
-        self.fetchFriends()
+        mapView.removeAnnotations(allAnnotations)
+        viewModel.users?.removeAll()
+        viewModel.annotations.removeAll()
+        fetchFriends()
     }
 }
 
@@ -230,32 +183,26 @@ class MapController: UIViewController {
 
 extension MapController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-        guard !(annotation is MKUserLocation) else { return nil }
         
-        let annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: "identifier", for: annotation) as! CustomAnnotationView
-
-        guard let index = users?.firstIndex(where: { $0.uid == annotation.subtitle }) else { return nil }
-                
-        annotationView.user = users?[index]
-        
+        let annotationView = self.viewModel.mapViewCustomAnnotation(mapView: mapView, annotation: annotation)
         return annotationView
     }
     
     func mapView(_ mapView: MKMapView, didSelect view: MKAnnotationView) {
-        guard let index = users?.firstIndex(where: { $0.uid == view.annotation?.subtitle }) else { return }
-        guard let user = users?[index] else { return }
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
-        
-        if user.uid == currentUid {
-            let controller = ProfileController(user: user)
-            controller.delegate = self
-            navigationController?.pushViewController(controller, animated: true)
-        } else {
-            let controller = ChatController(user: user)
-            controller.delegate = self
-            navigationController?.pushViewController(controller, animated: true)
-            navigationController?.navigationBar.isHidden = false
-        }    
+            
+        self.viewModel.mapViewDidSelect(mapView: mapView, view: view) { user in
+            if user.uid == currentUid {
+                let controller = ProfileController(user: user)
+                controller.delegate = self
+                navigationController?.pushViewController(controller, animated: true)
+            } else {
+                let controller = ChatController(user: user)
+                controller.delegate = self
+                navigationController?.pushViewController(controller, animated: true)
+                navigationController?.navigationBar.isHidden = false
+            }
+        }
         mapView.deselectAnnotation(view.annotation, animated: true)
     }
 }
@@ -264,16 +211,11 @@ extension MapController: MKMapViewDelegate {
 
 extension MapController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        userLocation = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
+        let userLocation = CLLocationCoordinate2D(latitude: locations[0].coordinate.latitude, longitude: locations[0].coordinate.longitude)
         
-        if !isUserLocate {
-            let span = MKCoordinateSpan(latitudeDelta: 0.01, longitudeDelta: 0.01)
-            let region = MKCoordinateRegion(center: userLocation, span: span)
-            mapView.setRegion(region, animated: true)
-            isUserLocate = true
+        self.viewModel.locationManager(userLocation: userLocation) { region in
+            self.mapView.setRegion(region, animated: true)
         }
-        userAnnotation.coordinate = userLocation
-        self.updateLocation()
     }
 }
 
@@ -291,9 +233,8 @@ extension MapController: AuthenticationDelegate {
 
 extension MapController: ProfileControllerDelegate {
     func handleRemoveFriend(_ user: User) {
-        let uid = user.uid
         navigationController?.popToRootViewController(animated: true)
-        Service.shared.removeUserFromFriends(uid: uid) { error in
+        viewModel.handleRemoveFriend(user) { error in
             if error == nil {
                 self.refreshMapView()
             }
@@ -301,8 +242,8 @@ extension MapController: ProfileControllerDelegate {
     }
     
     func handleLogout() {
-        navigationController?.popToRootViewController(animated: true)
         logOut()
+        navigationController?.popToRootViewController(animated: true)
     }
 }
 
