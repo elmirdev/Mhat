@@ -112,6 +112,7 @@ class ProfileController: UIViewController {
                     return
                 }
                 self.viewModel.user.isRequested = true
+                self.configureAfterDataFetched()
             }
         }
     }

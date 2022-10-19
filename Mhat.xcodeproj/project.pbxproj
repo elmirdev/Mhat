@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0419E395A1EF1C1DA46C8BF4 /* Pods_Mhat.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F0A256F8292B689A53529FF8 /* Pods_Mhat.framework */; };
 		EF0DF07A2863698800B287F5 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EF0DF0792863698800B287F5 /* GoogleService-Info.plist */; };
+		EF10EF7A28FFD6C2004B1240 /* NotificationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF10EF7928FFD6C2004B1240 /* NotificationViewModel.swift */; };
 		EF155EF82859237F008CBA64 /* CustomAnnotationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF155EF72859237F008CBA64 /* CustomAnnotationView.swift */; };
 		EF3E8416285FD82E00196884 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3E8415285FD82E00196884 /* ChatController.swift */; };
 		EF3E8418285FD8B000196884 /* CustomInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF3E8417285FD8B000196884 /* CustomInputAccessoryView.swift */; };
@@ -46,6 +47,7 @@
 		533117295EFDA22ED80BB093 /* Pods-Mhat.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mhat.release.xcconfig"; path = "Target Support Files/Pods-Mhat/Pods-Mhat.release.xcconfig"; sourceTree = "<group>"; };
 		71F04A50B4E5FB11772C7B67 /* Pods-Mhat.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Mhat.debug.xcconfig"; path = "Target Support Files/Pods-Mhat/Pods-Mhat.debug.xcconfig"; sourceTree = "<group>"; };
 		EF0DF0792863698800B287F5 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EF10EF7928FFD6C2004B1240 /* NotificationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationViewModel.swift; sourceTree = "<group>"; };
 		EF155EF72859237F008CBA64 /* CustomAnnotationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomAnnotationView.swift; sourceTree = "<group>"; };
 		EF3E8415285FD82E00196884 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
 		EF3E8417285FD8B000196884 /* CustomInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomInputAccessoryView.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 		EF8E807528FB63F800401B0B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
+				EF10EF7928FFD6C2004B1240 /* NotificationViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -537,6 +540,7 @@
 				EFC322F92862525900EDCFCD /* NotificationService.swift in Sources */,
 				EFD0A8E5285F67E10029E612 /* AnnotationViewModel.swift in Sources */,
 				EFC322EF28622B7300EDCFCD /* ProfileController.swift in Sources */,
+				EF10EF7A28FFD6C2004B1240 /* NotificationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
