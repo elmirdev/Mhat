@@ -130,7 +130,8 @@ class ProfileController: UIViewController {
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(alert, animated: true, completion: nil)
         } else {
-            let controller = ChatController(user: user)
+            let controller = ChatController(collectionViewLayout: UICollectionViewFlowLayout())
+            controller.viewModel.user = user
             navigationController?.pushViewController(controller, animated: true)
         }
     }

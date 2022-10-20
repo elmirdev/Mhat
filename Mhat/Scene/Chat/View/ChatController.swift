@@ -44,22 +44,11 @@ class ChatController: UICollectionViewController {
         
         return imageView
     }()
-    
-    private let user: User
-    private var messages = [Message]()
-    var fromCurrentUser = false
+        
+    let viewModel = ChatViewModel()
     
     // MARK: - Lifecyle
-    
-    init(user: User) {
-        self.user = user
-        super.init(collectionViewLayout: UICollectionViewFlowLayout())
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
-    
+        
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -89,7 +78,7 @@ class ChatController: UICollectionViewController {
     
     @objc func showProfile() {
         let controller = ProfileController()
-        controller.viewModel.user = user
+        controller.viewModel.user = viewModel.user
         controller.delegate = delegate
         navigationController?.pushViewController(controller, animated: true)
     }
@@ -99,11 +88,10 @@ class ChatController: UICollectionViewController {
     func fetchMessages() {
         showLoader(true)
         
-        Service.shared.fetchMessages(forUser: user) { messages in
+        viewModel.fetchMessages {
             self.showLoader(false)
-            self.messages = messages
             self.collectionView.reloadData()
-            self.collectionView.scrollToItem(at: [0, self.messages.count - 1], at: .top, animated: true)
+            self.collectionView.scrollToItem(at: [0, self.viewModel.messages.count - 1], at: .top, animated: true)
         }
         showLoader(false)
     }
@@ -113,7 +101,7 @@ class ChatController: UICollectionViewController {
     func configureUI() {
         collectionView.backgroundColor = .white
         navigationController?.navigationBar.isHidden = false
-        configureNavigationBar(withTitle: user.username, backgroundColor: .white, prefersLargeTitles: false)
+        configureNavigationBar(withTitle: viewModel.user.username, backgroundColor: .white, prefersLargeTitles: false)
         
         collectionView.register(MessageCell.self, forCellWithReuseIdentifier: reuseIdentifier)
         collectionView.alwaysBounceVertical = true
@@ -122,7 +110,7 @@ class ChatController: UICollectionViewController {
     }
     
     func configureBarButton() {
-        guard let url = URL(string: user.profileImageUrl) else { return }
+        guard let url = URL(string: viewModel.user.profileImageUrl) else { return }
         profileImageView.sd_setImage(with: url)
         
         navigationItem.rightBarButtonItem = UIBarButtonItem(customView: profileImageView)
@@ -135,13 +123,13 @@ class ChatController: UICollectionViewController {
 
 extension ChatController {
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return messages.count
+        return viewModel.messages.count
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! MessageCell
-        cell.message = messages[indexPath.row]
-        cell.message?.user = user
+        cell.message = viewModel.messages[indexPath.row]
+        cell.message?.user = viewModel.user
         return cell
     }
 }
@@ -156,7 +144,7 @@ extension ChatController: UICollectionViewDelegateFlowLayout {
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         let estimatedSizeCell = MessageCell(frame: frame)
-        estimatedSizeCell.message = messages[indexPath.row]
+        estimatedSizeCell.message = viewModel.messages[indexPath.row]
         estimatedSizeCell.layoutIfNeeded()
         
         let targetSize = CGSize(width: view.frame.width, height: 1000)
@@ -172,13 +160,7 @@ extension ChatController: CustomInputAccessoryViewDelegate {
     func inputView(_ inputView: CustomInputAccessoryView, wantsToSend message: String) {
        
         inputView.clearMessageText()
-        
-        Service.shared.uploadMessage(message, to: user) { error in
-            if let error = error {
-                print("DEBUG: Failed to send message with error \(error.localizedDescription)")
-                return
-            }
-        }
+        viewModel.uploadMesssage(message: message)
     }
 }
 

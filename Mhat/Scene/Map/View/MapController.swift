@@ -198,7 +198,8 @@ extension MapController: MKMapViewDelegate {
                 controller.delegate = self
                 navigationController?.pushViewController(controller, animated: true)
             } else {
-                let controller = ChatController(user: user)
+                let controller = ChatController(collectionViewLayout: UICollectionViewFlowLayout())
+                controller.viewModel.user = user
                 controller.delegate = self
                 navigationController?.pushViewController(controller, animated: true)
                 navigationController?.navigationBar.isHidden = false
