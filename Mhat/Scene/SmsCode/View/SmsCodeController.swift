@@ -12,6 +12,8 @@ class SmsCodeController: UIViewController {
     
     // MARK: - Properties
     
+    let viewModel = SmsCodeViewModel()
+    
     weak var delegate: AuthenticationDelegate?
     
     private lazy var containerView = InputContainerView(textField: smsCodeTextField, shouldHideLabelFlag: true)
@@ -54,21 +56,16 @@ class SmsCodeController: UIViewController {
     
     func verifyCode() {
         let smsCode = smsCodeTextField.text!
-        AuthService.shared.verifyCode(smsCode: smsCode) { success in
-            guard success else { return }
-            
-            guard let uid = Auth.auth().currentUser?.uid else { return }
-            
-            Service.shared.checkUserIsRegistered(uid: uid) { userIsRegistered in
-                if userIsRegistered {
-                    self.delegate?.authenticationComplete()
-                    self.showLoader(false)
-                } else {
-                    let controller = RegistrationController()
-                    controller.delegate = self.delegate
-                    self.navigationController?.pushViewController(controller, animated: true)
-                    self.showLoader(false)
-                }
+        
+        viewModel.verifyCode(smsCode: smsCode) { userIsRegistered in
+            if userIsRegistered {
+                self.delegate?.authenticationComplete()
+                self.showLoader(false)
+            } else {
+                let controller = RegistrationController()
+                controller.delegate = self.delegate
+                self.navigationController?.pushViewController(controller, animated: true)
+                self.showLoader(false)
             }
         }
     }

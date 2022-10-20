@@ -12,6 +12,8 @@ class RegistrationController: UIViewController {
     
     // MARK: - Properties
     
+    let viewModel = RegistrationViewModel()
+    
     weak var delegate: AuthenticationDelegate?
     
     private lazy var plusPhotoButton: UIButton = {
@@ -68,7 +70,7 @@ class RegistrationController: UIViewController {
         guard let username = usernameTextField.text?.lowercased() else { return }
         showLoader(true)
         
-        AuthService.shared.createUser(profileImage: profileImage, fullname: fullname, username: username) { error in
+        viewModel.handleRegister(profileImage: profileImage, fullname: fullname, username: username) { error in
             if let error = error {
                 print("DEBUG: error \(error.localizedDescription)")
                 self.showLoader(false)

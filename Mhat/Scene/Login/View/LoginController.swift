@@ -15,6 +15,7 @@ class LoginController: UIViewController {
     
     // MARK: - Properties
     
+    let viewModel = LoginViewModel()
     weak var delegate: AuthenticationDelegate?
     
     private let appNameLabel: UILabel = {
@@ -72,7 +73,8 @@ class LoginController: UIViewController {
     
     func startAuth() {
         let phoneNumber = "+994\(phoneNumberTextField.text!)"
-        AuthService.shared.startAuth(phoneNumber: phoneNumber) { success in
+        
+        viewModel.startAuth(phoneNumber: phoneNumber) { success in
             guard success else { return }
             
             let controller = SmsCodeController()
