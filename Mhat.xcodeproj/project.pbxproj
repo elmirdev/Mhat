@@ -41,6 +41,7 @@
 		EFF76BB52859186000F3BD8B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFF76BB32859186000F3BD8B /* LaunchScreen.storyboard */; };
 		EFF76BC3285918A100F3BD8B /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF76BC2285918A100F3BD8B /* Extensions.swift */; };
 		EFF76BC5285918EC00F3BD8B /* MapController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF76BC4285918EC00F3BD8B /* MapController.swift */; };
+		EFF827A82901549500F59342 /* SearchUserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF827A72901549500F59342 /* SearchUserViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -81,6 +82,7 @@
 		EFF76BB62859186000F3BD8B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		EFF76BC2285918A100F3BD8B /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		EFF76BC4285918EC00F3BD8B /* MapController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapController.swift; sourceTree = "<group>"; };
+		EFF827A72901549500F59342 /* SearchUserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserViewModel.swift; sourceTree = "<group>"; };
 		F0A256F8292B689A53529FF8 /* Pods_Mhat.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Mhat.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
@@ -179,6 +181,7 @@
 			isa = PBXGroup;
 			children = (
 				EF8E807D28FB655700401B0B /* View */,
+				EFF827A62901546E00F59342 /* ViewModel */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -396,6 +399,14 @@
 			path = ViewModel;
 			sourceTree = "<group>";
 		};
+		EFF827A62901546E00F59342 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EFF827A72901549500F59342 /* SearchUserViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -523,6 +534,7 @@
 				EF3E8418285FD8B000196884 /* CustomInputAccessoryView.swift in Sources */,
 				EFC322F528624F2900EDCFCD /* NotificationCell.swift in Sources */,
 				EF457E03285C75EC008965E7 /* AuthService.swift in Sources */,
+				EFF827A82901549500F59342 /* SearchUserViewModel.swift in Sources */,
 				EF8E808128FB688800401B0B /* MapViewModel.swift in Sources */,
 				EFC322ED2860DCCE00EDCFCD /* UserCell.swift in Sources */,
 				EFF76BC5285918EC00F3BD8B /* MapController.swift in Sources */,

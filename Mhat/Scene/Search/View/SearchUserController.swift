@@ -13,8 +13,7 @@ class SearchUserController: UITableViewController {
     
     // MARK: - Properties
     
-    private var users = [User]()
-    private var filteredUsers = [User]()
+    let viewModel = SearchUserViewModel()
     
     weak var delegate: ProfileControllerDelegate?
     
@@ -59,10 +58,7 @@ class SearchUserController: UITableViewController {
     // MARK: - API
     
     func fetchUsers() {
-        //showLoader(true)
-        Service.shared.fetchUsers { users in
-            //self.showLoader(false)
-            self.users = users
+        viewModel.fetchUsers {
             self.tableView.reloadData()
         }
     }
@@ -101,12 +97,12 @@ class SearchUserController: UITableViewController {
 
 extension SearchUserController {
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return inSearchMode ? filteredUsers.count : users.count
+        return inSearchMode ? viewModel.filteredUsers.count : viewModel.users.count
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! UserCell
-        cell.user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
+        cell.user = inSearchMode ? viewModel.filteredUsers[indexPath.row] : viewModel.users[indexPath.row]
         return cell
     }
 }
@@ -115,7 +111,7 @@ extension SearchUserController {
 
 extension SearchUserController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = inSearchMode ? filteredUsers[indexPath.row] : users[indexPath.row]
+        let user = inSearchMode ? viewModel.filteredUsers[indexPath.row] : viewModel.users[indexPath.row]
         let controller = ProfileController()
         controller.viewModel.user = user
         controller.delegate = delegate
@@ -127,7 +123,7 @@ extension SearchUserController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         guard let searchText = searchController.searchBar.text?.lowercased() else { return }
         
-        filteredUsers = users.filter({ user in
+        viewModel.filteredUsers = viewModel.users.filter({ user in
             return user.username.contains(searchText)
         })
         self.tableView.reloadData()
