@@ -35,6 +35,7 @@
 		EFC322F728624F7600EDCFCD /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F628624F7500EDCFCD /* Notification.swift */; };
 		EFC322F92862525900EDCFCD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F82862525900EDCFCD /* NotificationService.swift */; };
 		EFD0A8E5285F67E10029E612 /* AnnotationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD0A8E4285F67E10029E612 /* AnnotationViewModel.swift */; };
+		EFE349D52906ADB400C28987 /* ProfileOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE349D42906ADB400C28987 /* ProfileOptionCell.swift */; };
 		EFF76BA92859185F00F3BD8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF76BA82859185F00F3BD8B /* AppDelegate.swift */; };
 		EFF76BAB2859185F00F3BD8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF76BAA2859185F00F3BD8B /* SceneDelegate.swift */; };
 		EFF76BB22859186000F3BD8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFF76BB12859186000F3BD8B /* Assets.xcassets */; };
@@ -78,6 +79,7 @@
 		EFC322F628624F7500EDCFCD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		EFC322F82862525900EDCFCD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		EFD0A8E4285F67E10029E612 /* AnnotationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationViewModel.swift; sourceTree = "<group>"; };
+		EFE349D42906ADB400C28987 /* ProfileOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionCell.swift; sourceTree = "<group>"; };
 		EFF76BA52859185F00F3BD8B /* Mhat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mhat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFF76BA82859185F00F3BD8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFF76BAA2859185F00F3BD8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -134,6 +136,7 @@
 		EF5B993428FDE72500318B7B /* View */ = {
 			isa = PBXGroup;
 			children = (
+				EFE349D42906ADB400C28987 /* ProfileOptionCell.swift */,
 				EFC322EE28622B7300EDCFCD /* ProfileController.swift */,
 			);
 			path = View;
@@ -574,6 +577,7 @@
 				EFC322F12862366600EDCFCD /* ProfileViewModel.swift in Sources */,
 				EF3E841C285FDB8500196884 /* MessageCell.swift in Sources */,
 				EF155EF82859237F008CBA64 /* CustomAnnotationView.swift in Sources */,
+				EFE349D52906ADB400C28987 /* ProfileOptionCell.swift in Sources */,
 				EF457E07285D1B7F008965E7 /* RegistrationController.swift in Sources */,
 				EF457E05285C7C7C008965E7 /* SmsCodeController.swift in Sources */,
 				EF457E01285A5F2B008965E7 /* InputContainerView.swift in Sources */,

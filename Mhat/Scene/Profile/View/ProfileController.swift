@@ -57,7 +57,7 @@ class ProfileController: UIViewController {
     
     private let usernameLabel: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 16)
+        label.font = UIFont.boldSystemFont(ofSize: 16)
         label.textColor = .gray
         label.textAlignment = .center
         return label
@@ -74,6 +74,14 @@ class ProfileController: UIViewController {
         button.addTarget(self, action: #selector(handleMessageLogout), for: .touchUpInside)
         return button
     }()
+    
+    private let divider: UIView = {
+        let view = UIView()
+        view.backgroundColor = .systemGray4
+        return view
+    }()
+    
+    private let tableView = UITableView()
     
     // MARK: - Lifecycle
         
@@ -155,15 +163,24 @@ class ProfileController: UIViewController {
         navigationController?.navigationBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
         
+        tableView.delegate = self
+        tableView.dataSource = self
+        tableView.rowHeight = 60
+        tableView.separatorStyle = .none
+        tableView.register(ProfileOptionCell.self, forCellReuseIdentifier: "profileOptionCell")
+                
         profileImageView.setDimensions(width: 200, height: 200)
         profileImageView.layer.cornerRadius = 200 / 2
         
         view.addSubview(containerView)
         containerView.anchor(top: view.topAnchor, left: view.leftAnchor, right: view.rightAnchor, height: 200)
         
+        view.addSubview(backButton)
+        backButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 8, paddingLeft: 16)
+        
         view.addSubview(profileImageView)
         profileImageView.centerX(inView: view)
-        profileImageView.anchor(top: containerView.bottomAnchor, paddingTop: -50)
+        profileImageView.anchor(top: containerView.bottomAnchor, paddingTop: -100)
         
         let stack = UIStackView(arrangedSubviews: [fullnameLabel, usernameLabel])
         stack.axis = .vertical
@@ -173,16 +190,19 @@ class ProfileController: UIViewController {
         stack.centerX(inView: profileImageView)
         stack.anchor(top: profileImageView.bottomAnchor, paddingTop: 16)
         
-        let buttonStack = UIStackView(arrangedSubviews: [editProfileAddFriendButton, messageLogoutButton])
-        buttonStack.axis = .vertical
-        buttonStack.spacing = 16
+//        let buttonStack = UIStackView(arrangedSubviews: [editProfileAddFriendButton, messageLogoutButton])
+//        buttonStack.axis = .vertical
+//        buttonStack.spacing = 16
         
-        view.addSubview(buttonStack)
-        buttonStack.centerX(inView: profileImageView, topAnchor: stack.bottomAnchor, paddingTop: 16)
-        buttonStack.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
+//        view.addSubview(editProfileAddFriendButton)
+//        editProfileAddFriendButton.centerX(inView: profileImageView, topAnchor: stack.bottomAnchor, paddingTop: 16)
+//        editProfileAddFriendButton.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
+
+//        view.addSubview(divider)
+//        divider.anchor(top: editProfileAddFriendButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16, height: 1)
         
-        view.addSubview(backButton)
-        backButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 8, paddingLeft: 16)
+        view.addSubview(tableView)
+        tableView.anchor(top: stack.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 16)
     }
     
     func configure() {
@@ -191,7 +211,7 @@ class ProfileController: UIViewController {
         profileImageView.sd_setImage(with: url)
         
         fullnameLabel.text = viewModel.user.fullname
-        usernameLabel.text = viewModel.user.username
+        usernameLabel.text = "@\(viewModel.user.username)"
     }
     
     func configureAfterDataFetched() {
@@ -201,6 +221,22 @@ class ProfileController: UIViewController {
         
         editProfileAddFriendButton.setTitle(viewModel.editProfileAddFriendButtonTitle, for: .normal)
         editProfileAddFriendButton.backgroundColor = .customBlue
+    }
+}
+
+// MARK: - UITableViewDataSource, UITableViewDelegate
+
+extension ProfileController: UITableViewDataSource, UITableViewDelegate {
+    
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return ProfileMenuOptions.allCases.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "profileOptionCell", for: indexPath) as! ProfileOptionCell
+        let option = ProfileMenuOptions(rawValue: indexPath.row)
+        cell.option = option
+        return cell
     }
 }
 
@@ -219,10 +255,10 @@ extension ProfileController {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
-        button.titleLabel?.font = UIFont.systemFont(ofSize: 16)
+        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.backgroundColor = .lightGray
-        button.setHeight(height: 48)
-        button.layer.cornerRadius = 10
+        button.setDimensions(width: 130, height: 44)
+        button.layer.cornerRadius = 44 / 3
         return button
     }
 }
