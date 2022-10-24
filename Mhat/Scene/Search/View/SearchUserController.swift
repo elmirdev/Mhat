@@ -28,9 +28,9 @@ class SearchUserController: UITableViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 16, weight: UIImage.SymbolWeight.semibold)
         let image = UIImage(systemName: "xmark", withConfiguration: config)
         button.setImage(image, for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = UIColor(named: "MainColor")
         button.setDimensions(width: 32, height: 32)
-        button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleDismissall), for: .touchUpInside)
         return button
     }()
     
@@ -51,7 +51,7 @@ class SearchUserController: UITableViewController {
     
     // MARK: - Selectors
     
-    @objc func handleDismissal() {
+    @objc func handleDismissall() {
         dismiss(animated: true, completion: nil)
     }
     
@@ -112,10 +112,17 @@ extension SearchUserController {
 extension SearchUserController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = inSearchMode ? viewModel.filteredUsers[indexPath.row] : viewModel.users[indexPath.row]
-        let controller = ProfileController()
-        controller.viewModel.user = user
-        controller.delegate = delegate
-        navigationController?.pushViewController(controller, animated: true)
+        if user.isCurrentUser {
+            let controller = CurrentProfileController()
+            controller.viewModel.user = user
+            controller.delegate = delegate
+            navigationController?.pushViewController(controller, animated: true)
+        } else {
+            let controller = OtherProfileController()
+            controller.viewModel.user = user
+            controller.delegate = delegate
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
 

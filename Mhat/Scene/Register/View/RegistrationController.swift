@@ -19,7 +19,7 @@ class RegistrationController: UIViewController {
     private lazy var plusPhotoButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "plus_photo"), for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = UIColor(named: "MainColor")
         button.addTarget(self, action: #selector(handleSelectPhoto), for: .touchUpInside)
         return button
     }()
@@ -47,7 +47,7 @@ class RegistrationController: UIViewController {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.setTitle("Continue", for: .normal)
-        button.backgroundColor = .customBlue
+        button.backgroundColor = UIColor(named: "MainColor")
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(handleRegister), for: .touchUpInside)
@@ -119,7 +119,7 @@ extension RegistrationController: UIImagePickerControllerDelegate, UINavigationC
         plusPhotoButton.layer.masksToBounds = true
         plusPhotoButton.imageView?.contentMode = .scaleAspectFill
         plusPhotoButton.imageView?.clipsToBounds = true
-        plusPhotoButton.layer.borderColor = UIColor.customBlue.cgColor
+        plusPhotoButton.layer.borderColor = UIColor(named: "MainColor")?.cgColor
         plusPhotoButton.layer.borderWidth = 3
         self.plusPhotoButton.setImage(image.withRenderingMode(.alwaysOriginal), for: .normal)
         self.dismiss(animated: true, completion: nil)

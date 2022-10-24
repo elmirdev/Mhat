@@ -20,7 +20,7 @@ class NotificationController: UITableViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 16, weight: UIImage.SymbolWeight.semibold)
         let image = UIImage(systemName: "xmark", withConfiguration: config)
         button.setImage(image, for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = UIColor(named: "MainColor")
         button.setDimensions(width: 32, height: 32)
         button.addTarget(self, action: #selector(handleDismissal), for: .touchUpInside)
         return button
@@ -87,7 +87,7 @@ class NotificationController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = viewModel.notifications[indexPath.row].user
-        let controller = ProfileController()
+        let controller = CurrentProfileController()
         controller.viewModel.user = user
         navigationController?.pushViewController(controller, animated: true)
     }

@@ -1,30 +1,23 @@
 //
-//  ProfileController.swift
+//  OtherProfileController.swift
 //  Mhat
 //
-//  Created by ELMIR ISMAYILZADA on 21.06.22.
+//  Created by ELMIR ISMAYILZADA on 24.10.22.
 //
 
 import UIKit
-import SDWebImage
-import Firebase
 
-protocol ProfileControllerDelegate: AnyObject {
-    func handleRemoveFriend(_ user: User)
-    func handleLogout()
-}
-
-class ProfileController: UIViewController {
+class OtherProfileController: UIViewController {
     
     // MARK: - Properties
-        
-    let viewModel = ProfileViewModel()
+    
+    let viewModel = OtherProfileViewModel()
     
     weak var delegate: ProfileControllerDelegate?
     
     private let containerView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customBlue
+        view.backgroundColor = UIColor(named: "MainColor")
         return view
     }()
     
@@ -44,7 +37,7 @@ class ProfileController: UIViewController {
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         iv.setBorder(borderColor: .white, borderWidth: 4)
-        iv.backgroundColor = .lightGray
+        iv.backgroundColor = .systemGray4
         return iv
     }()
     
@@ -63,44 +56,32 @@ class ProfileController: UIViewController {
         return label
     }()
     
-    private lazy var editProfileAddFriendButton: UIButton = {
+    private lazy var addFriendButton: UIButton = {
         let button = buttonMaker(title: "Loading", titleColor: .white)
-        button.addTarget(self, action: #selector(handleEditProfileAddFirend), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleAddFirend), for: .touchUpInside)
         return button
     }()
     
-    private lazy var messageLogoutButton: UIButton = {
+    private lazy var messageButton: UIButton = {
         let button = buttonMaker(title: "Loading", titleColor: .white)
-        button.addTarget(self, action: #selector(handleMessageLogout), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleMessage), for: .touchUpInside)
         return button
     }()
-    
-    private let divider: UIView = {
-        let view = UIView()
-        view.backgroundColor = .systemGray4
-        return view
-    }()
-    
-    private let tableView = UITableView()
+
     
     // MARK: - Lifecycle
-        
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        configureUI()
         configure()
+        configureUI()
         checkUserIsFriendOrIsRequest()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.navigationBar.isHidden = true
     }
     
     // MARK: - Selectors
     
-    @objc func handleEditProfileAddFirend() {
+    @objc func handleAddFirend() {
         let user = viewModel.user
         if user.isFriend && !user.isCurrentUser {
             let alert = UIAlertController(title: nil, message: "Are you sure you want to remove from friends?", preferredStyle: .actionSheet)
@@ -112,7 +93,7 @@ class ProfileController: UIViewController {
             alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
             self.present(alert, animated: true, completion: nil)
         }
-        
+
         if !user.isCurrentUser && !user.isRequested && !user.isFriend {
             NotificationService.shared.uploadNotification(uid: user.uid) { error in
                 if let error = error {
@@ -125,29 +106,19 @@ class ProfileController: UIViewController {
         }
     }
     
-    @objc func handleMessageLogout() {
+    @objc func handleMessage() {
         let user = viewModel.user
         
-        if user.isCurrentUser {
-            let alert = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .actionSheet)
-            alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
-                self.dismiss(animated: true) {
-                    self.delegate?.handleLogout()
-                }
-            }))
-            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-            self.present(alert, animated: true, completion: nil)
-        } else {
-            let controller = ChatController(collectionViewLayout: UICollectionViewFlowLayout())
-            controller.viewModel.user = user
-            navigationController?.pushViewController(controller, animated: true)
-        }
+        let controller = ChatController(collectionViewLayout: UICollectionViewFlowLayout())
+        controller.viewModel.user = user
+        navigationController?.pushViewController(controller, animated: true)
     }
+
     
     @objc func handleBack() {
         navigationController?.popViewController(animated: true)
     }
-        
+    
     // MARK: - API
     
     func checkUserIsFriendOrIsRequest() {
@@ -155,20 +126,14 @@ class ProfileController: UIViewController {
             self.configureAfterDataFetched()
         }
     }
-        
+
     // MARK: - Helpers
     
     func configureUI() {
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
-        
-        tableView.delegate = self
-        tableView.dataSource = self
-        tableView.rowHeight = 60
-        tableView.separatorStyle = .none
-        tableView.register(ProfileOptionCell.self, forCellReuseIdentifier: "profileOptionCell")
-                
+                        
         profileImageView.setDimensions(width: 200, height: 200)
         profileImageView.layer.cornerRadius = 200 / 2
         
@@ -190,19 +155,13 @@ class ProfileController: UIViewController {
         stack.centerX(inView: profileImageView)
         stack.anchor(top: profileImageView.bottomAnchor, paddingTop: 16)
         
-//        let buttonStack = UIStackView(arrangedSubviews: [editProfileAddFriendButton, messageLogoutButton])
-//        buttonStack.axis = .vertical
-//        buttonStack.spacing = 16
+        let buttonStack = UIStackView(arrangedSubviews: [addFriendButton, messageButton])
+        buttonStack.axis = .vertical
+        buttonStack.spacing = 16
         
-//        view.addSubview(editProfileAddFriendButton)
-//        editProfileAddFriendButton.centerX(inView: profileImageView, topAnchor: stack.bottomAnchor, paddingTop: 16)
-//        editProfileAddFriendButton.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
-
-//        view.addSubview(divider)
-//        divider.anchor(top: editProfileAddFriendButton.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 16, paddingLeft: 16, paddingRight: 16, height: 1)
-        
-        view.addSubview(tableView)
-        tableView.anchor(top: stack.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 16)
+        view.addSubview(buttonStack)
+        buttonStack.centerX(inView: profileImageView, topAnchor: stack.bottomAnchor, paddingTop: 16)
+        buttonStack.anchor(left: view.leftAnchor, right: view.rightAnchor, paddingLeft: 32, paddingRight: 32)
     }
     
     func configure() {
@@ -215,48 +174,33 @@ class ProfileController: UIViewController {
     }
     
     func configureAfterDataFetched() {
-        messageLogoutButton.isHidden = viewModel.shouldShowMessageButton
-        messageLogoutButton.setTitle(viewModel.messageLogoutButtonTitle, for: .normal)
-        messageLogoutButton.backgroundColor = viewModel.messageLogoutButtonColor
+        messageButton.isHidden = viewModel.shouldShowMessageButton
+        messageButton.setTitle(viewModel.messageLogoutButtonTitle, for: .normal)
+        messageButton.backgroundColor = viewModel.messageButtonColor
         
-        editProfileAddFriendButton.setTitle(viewModel.editProfileAddFriendButtonTitle, for: .normal)
-        editProfileAddFriendButton.backgroundColor = .customBlue
-    }
-}
-
-// MARK: - UITableViewDataSource, UITableViewDelegate
-
-extension ProfileController: UITableViewDataSource, UITableViewDelegate {
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return ProfileMenuOptions.allCases.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "profileOptionCell", for: indexPath) as! ProfileOptionCell
-        let option = ProfileMenuOptions(rawValue: indexPath.row)
-        cell.option = option
-        return cell
+        addFriendButton.setTitle(viewModel.addFriendButtonTitle, for: .normal)
+        addFriendButton.backgroundColor = UIColor(named: "MainColor")
     }
 }
 
 // MARK: - UIGestureRecognizerDelegate
 
-extension ProfileController: UIGestureRecognizerDelegate {
+extension OtherProfileController: UIGestureRecognizerDelegate {
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         return true
     }
 }
 
+
 // MARK: - buttonMaker func
 
-extension ProfileController {
-    func buttonMaker(title: String, titleColor: UIColor) -> UIButton {
+extension OtherProfileController {
+    fileprivate func buttonMaker(title: String, titleColor: UIColor) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
-        button.backgroundColor = .lightGray
+        button.backgroundColor = .systemGray4
         button.setDimensions(width: 130, height: 44)
         button.layer.cornerRadius = 44 / 3
         return button

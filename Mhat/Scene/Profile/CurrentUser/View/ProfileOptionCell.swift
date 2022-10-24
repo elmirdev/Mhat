@@ -30,7 +30,7 @@ class ProfileOptionCell: UITableViewCell {
         iv.contentMode = .scaleAspectFit
         iv.clipsToBounds = true
         iv.setDimensions(width: 24, height: 24)
-        iv.tintColor = .customBlue
+        iv.tintColor = UIColor(named: "MainColor")
         return iv
     }()
     
@@ -97,9 +97,9 @@ enum ProfileMenuOptions: Int, CaseIterable {
     
     var iconColor: UIColor {
         switch self {
-        case .editProfile: return .customBlue
-        case .settings: return .customBlue
-        case .friends: return .customBlue
+        case .editProfile: return UIColor(named: "MainColor")!
+        case .settings: return UIColor(named: "MainColor")!
+        case .friends: return UIColor(named: "MainColor")!
         case .logOut: return .systemRed
         }
     }

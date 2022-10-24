@@ -50,6 +50,13 @@ class MapController: UIViewController {
         return button
     }()
     
+    private lazy var chatButton: UIButton = {
+        let button = buttonMaker(iconName: "bubble.left.and.bubble.right.fill")
+        
+        button.addTarget(self, action: #selector(updateMyLocation), for: .touchUpInside)
+        return button
+    }()
+    
     private lazy var locationButton: UIButton = {
         let button = buttonMaker(iconName: "location.fill")
         
@@ -158,10 +165,13 @@ class MapController: UIViewController {
     
     func configureUI() {
         
+        let stack = UIStackView(arrangedSubviews: [chatButton, locationButton])
+        stack.axis = .vertical
+        stack.spacing = 8
         
-        view.addSubview(locationButton)
-        locationButton.centerY(inView: view)
-        locationButton.anchor(right: view.rightAnchor, paddingRight: 16)
+        view.addSubview(stack)
+        stack.centerY(inView: view)
+        stack.anchor(right: view.rightAnchor, paddingRight: 16)
                 
         view.addSubview(notificationButton)
         notificationButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 8, paddingLeft: 16)
@@ -193,7 +203,7 @@ extension MapController: MKMapViewDelegate {
             
         self.viewModel.mapViewDidSelect(mapView: mapView, view: view) { user in
             if user.uid == currentUid {
-                let controller = ProfileController()
+                let controller = CurrentProfileController()
                 controller.viewModel.user = user
                 controller.delegate = self
                 navigationController?.pushViewController(controller, animated: true)
@@ -257,7 +267,7 @@ extension MapController {
         let config = UIImage.SymbolConfiguration(pointSize: 16, weight: UIImage.SymbolWeight.semibold)
         let image = UIImage(systemName: iconName, withConfiguration: config)
         button.setImage(image, for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = UIColor(named: "MainColor")
         button.backgroundColor = .white
         button.clipsToBounds = true
         button.setDimensions(width: 48, height: 48)

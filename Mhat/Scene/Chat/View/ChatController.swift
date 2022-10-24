@@ -19,7 +19,7 @@ class ChatController: UICollectionViewController {
         let config = UIImage.SymbolConfiguration(pointSize: 16, weight: UIImage.SymbolWeight.semibold)
         let image = UIImage(systemName: "arrow.backward", withConfiguration: config)
         button.setImage(image, for: .normal)
-        button.tintColor = .customBlue
+        button.tintColor = UIColor(named: "MainColor")
         
         button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
         return button
@@ -34,7 +34,7 @@ class ChatController: UICollectionViewController {
     private lazy var profileImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.setDimensions(width: 40, height: 40)
-        imageView.setBorder(borderColor: .customBlue, borderWidth: 1)
+        imageView.setBorder(borderColor: UIColor(named: "MainColor")!, borderWidth: 1)
         imageView.layer.cornerRadius = 40 / 2
         imageView.layer.masksToBounds = true
         imageView.isUserInteractionEnabled = true
@@ -77,7 +77,7 @@ class ChatController: UICollectionViewController {
     }
     
     @objc func showProfile() {
-        let controller = ProfileController()
+        let controller = CurrentProfileController()
         controller.viewModel.user = viewModel.user
         controller.delegate = delegate
         navigationController?.pushViewController(controller, animated: true)

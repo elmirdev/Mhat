@@ -44,7 +44,7 @@ class NotificationCell: UITableViewCell {
     }()
     
     private lazy var confirmButton: UIButton = {
-        let button = buttonMaker(title: "Confirm", titleColor: .white, backgroundColor: .customBlue)
+        let button = buttonMaker(title: "Confirm", titleColor: .white, backgroundColor: UIColor(named: "MainColor")!)
         button.addTarget(self, action: #selector(handleConfirm), for: .touchUpInside)
         return button
     }()

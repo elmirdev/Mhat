@@ -110,7 +110,7 @@ extension UIColor {
     static let systemGray7 = UIColor.rgb(red: 247, green: 249, blue: 252)
     
     static let customYellow = UIColor.rgb(red: 249, green: 188, blue: 115)
-    static let customBlue = UIColor.rgb(red: 85, green: 128, blue: 246)
+    //static let customBlue = UIColor.rgb(red: 85, green: 128, blue: 246)
 }
 
 // MARK: - UIViewController
@@ -140,7 +140,7 @@ extension UIViewController {
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
         appearance.largeTitleTextAttributes = [.foregroundColor: UIColor.white]
-        appearance.titleTextAttributes = [.foregroundColor: UIColor.customBlue]
+        appearance.titleTextAttributes = [.foregroundColor: UIColor(named: "MainColor")]
         appearance.backgroundColor = backgroundColor
         
         navigationController?.navigationBar.standardAppearance = appearance

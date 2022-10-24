@@ -28,14 +28,17 @@
 		EFA2634C285D47E300890969 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA2634B285D47E300890969 /* User.swift */; };
 		EFC322EB2860D8B600EDCFCD /* SearchUserController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322EA2860D8B600EDCFCD /* SearchUserController.swift */; };
 		EFC322ED2860DCCE00EDCFCD /* UserCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322EC2860DCCE00EDCFCD /* UserCell.swift */; };
-		EFC322EF28622B7300EDCFCD /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322EE28622B7300EDCFCD /* ProfileController.swift */; };
-		EFC322F12862366600EDCFCD /* ProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F02862366500EDCFCD /* ProfileViewModel.swift */; };
+		EFC322EF28622B7300EDCFCD /* CurrentProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322EE28622B7300EDCFCD /* CurrentProfileController.swift */; };
+		EFC322F12862366600EDCFCD /* CurrentProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F02862366500EDCFCD /* CurrentProfileViewModel.swift */; };
 		EFC322F328624E8A00EDCFCD /* NotificationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F228624E8A00EDCFCD /* NotificationController.swift */; };
 		EFC322F528624F2900EDCFCD /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F428624F2900EDCFCD /* NotificationCell.swift */; };
 		EFC322F728624F7600EDCFCD /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F628624F7500EDCFCD /* Notification.swift */; };
 		EFC322F92862525900EDCFCD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F82862525900EDCFCD /* NotificationService.swift */; };
 		EFD0A8E5285F67E10029E612 /* AnnotationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD0A8E4285F67E10029E612 /* AnnotationViewModel.swift */; };
 		EFE349D52906ADB400C28987 /* ProfileOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE349D42906ADB400C28987 /* ProfileOptionCell.swift */; };
+		EFE349DA2906FCCD00C28987 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE349D92906FCCD00C28987 /* FriendsController.swift */; };
+		EFE349E02906FF2A00C28987 /* OtherProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE349DF2906FF2A00C28987 /* OtherProfileController.swift */; };
+		EFE349E2290702F400C28987 /* OtherProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE349E1290702F400C28987 /* OtherProfileViewModel.swift */; };
 		EFF76BA92859185F00F3BD8B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF76BA82859185F00F3BD8B /* AppDelegate.swift */; };
 		EFF76BAB2859185F00F3BD8B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFF76BAA2859185F00F3BD8B /* SceneDelegate.swift */; };
 		EFF76BB22859186000F3BD8B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFF76BB12859186000F3BD8B /* Assets.xcassets */; };
@@ -72,14 +75,17 @@
 		EFA2634B285D47E300890969 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		EFC322EA2860D8B600EDCFCD /* SearchUserController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchUserController.swift; sourceTree = "<group>"; };
 		EFC322EC2860DCCE00EDCFCD /* UserCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserCell.swift; sourceTree = "<group>"; };
-		EFC322EE28622B7300EDCFCD /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
-		EFC322F02862366500EDCFCD /* ProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewModel.swift; sourceTree = "<group>"; };
+		EFC322EE28622B7300EDCFCD /* CurrentProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentProfileController.swift; sourceTree = "<group>"; };
+		EFC322F02862366500EDCFCD /* CurrentProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentProfileViewModel.swift; sourceTree = "<group>"; };
 		EFC322F228624E8A00EDCFCD /* NotificationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationController.swift; sourceTree = "<group>"; };
 		EFC322F428624F2900EDCFCD /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		EFC322F628624F7500EDCFCD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		EFC322F82862525900EDCFCD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
 		EFD0A8E4285F67E10029E612 /* AnnotationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationViewModel.swift; sourceTree = "<group>"; };
 		EFE349D42906ADB400C28987 /* ProfileOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionCell.swift; sourceTree = "<group>"; };
+		EFE349D92906FCCD00C28987 /* FriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
+		EFE349DF2906FF2A00C28987 /* OtherProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileController.swift; sourceTree = "<group>"; };
+		EFE349E1290702F400C28987 /* OtherProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OtherProfileViewModel.swift; sourceTree = "<group>"; };
 		EFF76BA52859185F00F3BD8B /* Mhat.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Mhat.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFF76BA82859185F00F3BD8B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFF76BAA2859185F00F3BD8B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -128,7 +134,7 @@
 		EF5B993328FDE71800318B7B /* ViewModel */ = {
 			isa = PBXGroup;
 			children = (
-				EFC322F02862366500EDCFCD /* ProfileViewModel.swift */,
+				EFC322F02862366500EDCFCD /* CurrentProfileViewModel.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -137,7 +143,7 @@
 			isa = PBXGroup;
 			children = (
 				EFE349D42906ADB400C28987 /* ProfileOptionCell.swift */,
-				EFC322EE28622B7300EDCFCD /* ProfileController.swift */,
+				EFC322EE28622B7300EDCFCD /* CurrentProfileController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -202,8 +208,8 @@
 		EF8E806C28FB628B00401B0B /* Profile */ = {
 			isa = PBXGroup;
 			children = (
-				EF5B993428FDE72500318B7B /* View */,
-				EF5B993328FDE71800318B7B /* ViewModel */,
+				EFE349DC2906FD5C00C28987 /* OtherUser */,
+				EFE349DB2906FD4E00C28987 /* CurrentUser */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -337,6 +343,64 @@
 			path = View;
 			sourceTree = "<group>";
 		};
+		EFE349D62906FC6C00C28987 /* Friends */ = {
+			isa = PBXGroup;
+			children = (
+				EFE349D82906FC8A00C28987 /* View */,
+				EFE349D72906FC7D00C28987 /* ViewModel */,
+			);
+			path = Friends;
+			sourceTree = "<group>";
+		};
+		EFE349D72906FC7D00C28987 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EFE349D82906FC8A00C28987 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EFE349D92906FCCD00C28987 /* FriendsController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EFE349DB2906FD4E00C28987 /* CurrentUser */ = {
+			isa = PBXGroup;
+			children = (
+				EF5B993428FDE72500318B7B /* View */,
+				EF5B993328FDE71800318B7B /* ViewModel */,
+			);
+			path = CurrentUser;
+			sourceTree = "<group>";
+		};
+		EFE349DC2906FD5C00C28987 /* OtherUser */ = {
+			isa = PBXGroup;
+			children = (
+				EFE349DE2906FD6E00C28987 /* View */,
+				EFE349DD2906FD6900C28987 /* ViewModel */,
+			);
+			path = OtherUser;
+			sourceTree = "<group>";
+		};
+		EFE349DD2906FD6900C28987 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EFE349E1290702F400C28987 /* OtherProfileViewModel.swift */,
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EFE349DE2906FD6E00C28987 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EFE349DF2906FF2A00C28987 /* OtherProfileController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
 		EFF76B9C2859185F00F3BD8B = {
 			isa = PBXGroup;
 			children = (
@@ -399,6 +463,7 @@
 				EF8E806D28FB629800401B0B /* Notification */,
 				EF8E806B28FB627E00401B0B /* Search */,
 				EF8E806A28FB626E00401B0B /* Chat */,
+				EFE349D62906FC6C00C28987 /* Friends */,
 				EF8E806628FB621B00401B0B /* Login */,
 				EF8E806728FB624400401B0B /* Register */,
 				EF8E806828FB624A00401B0B /* SmsCode */,
@@ -570,24 +635,27 @@
 				EFF827AE2901643E00F59342 /* SmsCodeViewModel.swift in Sources */,
 				EF457E03285C75EC008965E7 /* AuthService.swift in Sources */,
 				EFF827A82901549500F59342 /* SearchUserViewModel.swift in Sources */,
+				EFE349E02906FF2A00C28987 /* OtherProfileController.swift in Sources */,
 				EF8E808128FB688800401B0B /* MapViewModel.swift in Sources */,
 				EFC322ED2860DCCE00EDCFCD /* UserCell.swift in Sources */,
 				EFF76BC5285918EC00F3BD8B /* MapController.swift in Sources */,
 				EFA2634C285D47E300890969 /* User.swift in Sources */,
-				EFC322F12862366600EDCFCD /* ProfileViewModel.swift in Sources */,
+				EFC322F12862366600EDCFCD /* CurrentProfileViewModel.swift in Sources */,
 				EF3E841C285FDB8500196884 /* MessageCell.swift in Sources */,
 				EF155EF82859237F008CBA64 /* CustomAnnotationView.swift in Sources */,
 				EFE349D52906ADB400C28987 /* ProfileOptionCell.swift in Sources */,
 				EF457E07285D1B7F008965E7 /* RegistrationController.swift in Sources */,
+				EFE349DA2906FCCD00C28987 /* FriendsController.swift in Sources */,
 				EF457E05285C7C7C008965E7 /* SmsCodeController.swift in Sources */,
 				EF457E01285A5F2B008965E7 /* InputContainerView.swift in Sources */,
+				EFE349E2290702F400C28987 /* OtherProfileViewModel.swift in Sources */,
 				EFF76BC3285918A100F3BD8B /* Extensions.swift in Sources */,
 				EF457DFF285A5DC0008965E7 /* LoginController.swift in Sources */,
 				EFC322F328624E8A00EDCFCD /* NotificationController.swift in Sources */,
 				EFC322F728624F7600EDCFCD /* Notification.swift in Sources */,
 				EFC322F92862525900EDCFCD /* NotificationService.swift in Sources */,
 				EFD0A8E5285F67E10029E612 /* AnnotationViewModel.swift in Sources */,
-				EFC322EF28622B7300EDCFCD /* ProfileController.swift in Sources */,
+				EFC322EF28622B7300EDCFCD /* CurrentProfileController.swift in Sources */,
 				EF10EF7A28FFD6C2004B1240 /* NotificationViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -735,7 +803,6 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "to get your location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -767,7 +834,6 @@
 				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "to get your location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (

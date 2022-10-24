@@ -19,7 +19,7 @@ class CustomAnnotationView: MKAnnotationView {
     
     private let animationView: UIView = {
         let view = UIView()
-        view.backgroundColor = .customBlue
+        view.backgroundColor = UIColor(named: "MainColor")
         view.clipsToBounds = true
         view.setDimensions(width: 60, height: 60)
         view.layer.cornerRadius = 60 / 2
@@ -30,7 +30,7 @@ class CustomAnnotationView: MKAnnotationView {
         let iv = UIImageView()
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
-        iv.layer.borderColor = UIColor.customBlue.cgColor
+        iv.layer.borderColor = UIColor(named: "MainColor")?.cgColor
         iv.layer.borderWidth = 4.0
         iv.backgroundColor = .lightGray
         iv.setDimensions(width: 60, height: 60)
@@ -46,7 +46,7 @@ class CustomAnnotationView: MKAnnotationView {
         label.textAlignment = .center
         label.clipsToBounds = true
         label.layer.cornerRadius = 6
-        label.backgroundColor = .customBlue
+        label.backgroundColor = UIColor(named: "MainColor")
         return label
     }()
 

@@ -30,7 +30,7 @@ class SmsCodeController: UIViewController {
         let button = UIButton(type: .system)
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 16)
         button.setTitle("Continue", for: .normal)
-        button.backgroundColor = .customBlue
+        button.backgroundColor = UIColor(named: "MainColor")
         button.setTitleColor(UIColor.white, for: .normal)
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(handleLogin), for: .touchUpInside)
