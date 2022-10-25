@@ -164,6 +164,12 @@ extension CurrentProfileController: UITableViewDataSource, UITableViewDelegate {
         cell.option = option
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let controller = EditProfileController()
+        
+        navigationController?.pushViewController(controller, animated: true)
+    }
 }
 
 // MARK: - UIGestureRecognizerDelegate

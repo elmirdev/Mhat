@@ -34,6 +34,7 @@
 		EFC322F528624F2900EDCFCD /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F428624F2900EDCFCD /* NotificationCell.swift */; };
 		EFC322F728624F7600EDCFCD /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F628624F7500EDCFCD /* Notification.swift */; };
 		EFC322F92862525900EDCFCD /* NotificationService.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFC322F82862525900EDCFCD /* NotificationService.swift */; };
+		EFCDC35529084465006C2A99 /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFCDC35429084465006C2A99 /* EditProfileController.swift */; };
 		EFD0A8E5285F67E10029E612 /* AnnotationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFD0A8E4285F67E10029E612 /* AnnotationViewModel.swift */; };
 		EFE349D52906ADB400C28987 /* ProfileOptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE349D42906ADB400C28987 /* ProfileOptionCell.swift */; };
 		EFE349DA2906FCCD00C28987 /* FriendsController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFE349D92906FCCD00C28987 /* FriendsController.swift */; };
@@ -81,6 +82,7 @@
 		EFC322F428624F2900EDCFCD /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		EFC322F628624F7500EDCFCD /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		EFC322F82862525900EDCFCD /* NotificationService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationService.swift; sourceTree = "<group>"; };
+		EFCDC35429084465006C2A99 /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
 		EFD0A8E4285F67E10029E612 /* AnnotationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnnotationViewModel.swift; sourceTree = "<group>"; };
 		EFE349D42906ADB400C28987 /* ProfileOptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileOptionCell.swift; sourceTree = "<group>"; };
 		EFE349D92906FCCD00C28987 /* FriendsController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FriendsController.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 			children = (
 				EFE349DC2906FD5C00C28987 /* OtherUser */,
 				EFE349DB2906FD4E00C28987 /* CurrentUser */,
+				EFCDC3512908440E006C2A99 /* EditProfile */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -339,6 +342,30 @@
 			children = (
 				EFC322EC2860DCCE00EDCFCD /* UserCell.swift */,
 				EFC322EA2860D8B600EDCFCD /* SearchUserController.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EFCDC3512908440E006C2A99 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				EFCDC35329084458006C2A99 /* View */,
+				EFCDC35229084425006C2A99 /* ViewModel */,
+			);
+			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		EFCDC35229084425006C2A99 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = ViewModel;
+			sourceTree = "<group>";
+		};
+		EFCDC35329084458006C2A99 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EFCDC35429084465006C2A99 /* EditProfileController.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -627,6 +654,7 @@
 				EF3E841E285FDBA600196884 /* MessageViewModel.swift in Sources */,
 				EF3E841A285FDB2A00196884 /* Message.swift in Sources */,
 				EFF827AA2901577700F59342 /* ChatViewModel.swift in Sources */,
+				EFCDC35529084465006C2A99 /* EditProfileController.swift in Sources */,
 				EF3E8416285FD82E00196884 /* ChatController.swift in Sources */,
 				EFF76BAB2859185F00F3BD8B /* SceneDelegate.swift in Sources */,
 				EFF827B3290167F600F59342 /* LoginViewModel.swift in Sources */,
