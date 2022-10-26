@@ -76,7 +76,8 @@ class MapController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         navigationController?.navigationBar.isHidden = true
-        fetchFriends()
+//        fetchFriends()
+        refreshMapView() // look this
         fetchNotificationsCount()
     }
     

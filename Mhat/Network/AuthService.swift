@@ -45,7 +45,6 @@ class AuthService {
         guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
-        let filename = NSUUID().uuidString
         let ref = Storage.storage().reference(withPath: "/profile_images/\(currentUid).jpg")
         
         ref.putData(imageData, metadata: nil) { meta, error in

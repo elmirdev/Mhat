@@ -71,8 +71,8 @@ class RegistrationController: UIViewController {
         showLoader(true)
         
         viewModel.handleRegister(profileImage: profileImage, fullname: fullname, username: username) { error in
-            if let error = error {
-                print("DEBUG: error \(error.localizedDescription)")
+            if error != nil {
+                self.showAlert(title: "Error", errorMessage: "Something went wrong!", completion: nil)
                 self.showLoader(false)
                 return
             }
