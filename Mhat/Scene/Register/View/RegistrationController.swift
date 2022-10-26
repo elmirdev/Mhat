@@ -26,8 +26,8 @@ class RegistrationController: UIViewController {
     
     private var profileImage: UIImage?
     
-    private lazy var usernameContainerView = InputContainerView(textField: fullnameTextField, shouldHideLabelFlag: true)
-    private lazy var fullnameContainerView = InputContainerView(textField: usernameTextField, shouldHideLabelFlag: true)
+    private lazy var usernameContainerView = InputContainerView(textField: usernameTextField, shouldHideLabelFlag: true)
+    private lazy var fullnameContainerView = InputContainerView(textField: fullnameTextField, shouldHideLabelFlag: true)
     
     private let fullnameTextField: UITextField = {
         let tf = UITextField()
@@ -109,6 +109,8 @@ class RegistrationController: UIViewController {
         continueButton.anchor(top: stack.bottomAnchor, left: view.leftAnchor, right: view.rightAnchor, paddingTop: 32, paddingLeft: 32, paddingRight: 32, height: 48)
     }
 }
+
+// MARK: - UIImagePickerControllerDelegate
 
 extension RegistrationController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {

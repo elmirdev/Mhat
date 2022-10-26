@@ -35,8 +35,16 @@ class CurrentProfileController: UIViewController {
         button.setImage(image, for: .normal)
         button.tintColor = .white
         
-        button.addTarget(self, action: #selector(handleBack), for: .touchUpInside)
+        button.addTarget(self, action: #selector(handleBackButton), for: .touchUpInside)
         return button
+    }()
+    
+    private let barTitle: UILabel = {
+        let label = UILabel()
+        label.font = UIFont.boldSystemFont(ofSize: 18)
+        label.textColor = .white
+        label.text = "Profile"
+        return label
     }()
     
     private let profileImageView: UIImageView = {
@@ -44,7 +52,7 @@ class CurrentProfileController: UIViewController {
         iv.clipsToBounds = true
         iv.contentMode = .scaleAspectFill
         iv.setBorder(borderColor: .white, borderWidth: 4)
-        iv.backgroundColor = .lightGray
+        iv.backgroundColor = .systemGray4
         return iv
     }()
     
@@ -81,13 +89,13 @@ class CurrentProfileController: UIViewController {
     
     // MARK: - Selectors
     
-    @objc func handleBack() {
+    @objc private func handleBackButton() {
         navigationController?.popViewController(animated: true)
     }
                 
     // MARK: - Helpers
     
-    func configureUI() {
+    private func configureUI() {
         view.backgroundColor = .white
         navigationController?.navigationBar.isHidden = true
         navigationController?.interactivePopGestureRecognizer?.delegate = self
@@ -107,6 +115,10 @@ class CurrentProfileController: UIViewController {
         view.addSubview(backButton)
         backButton.anchor(top: view.safeAreaLayoutGuide.topAnchor, left: view.leftAnchor, paddingTop: 8, paddingLeft: 16)
         
+        view.addSubview(barTitle)
+        barTitle.centerX(inView: view)
+        barTitle.anchor(top: view.safeAreaLayoutGuide.topAnchor, paddingTop: 8)
+        
         view.addSubview(profileImageView)
         profileImageView.centerX(inView: view)
         profileImageView.anchor(top: containerView.bottomAnchor, paddingTop: -100)
@@ -123,7 +135,7 @@ class CurrentProfileController: UIViewController {
         tableView.anchor(top: stack.bottomAnchor, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 16)
     }
     
-    func configure() {
+    private func configure() {
         guard let url = URL(string: viewModel.user.profileImageUrl) else { return }
         
         profileImageView.sd_setImage(with: url)
@@ -134,20 +146,20 @@ class CurrentProfileController: UIViewController {
     
     // MARK: - API
     
-//    func logout() {
-//        let user = viewModel.user
-//        
-//        if user.isCurrentUser {
-//            let alert = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .actionSheet)
-//            alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
-//                self.dismiss(animated: true) {
-//                    self.delegate?.handleLogout()
-//                }
-//            }))
-//            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-//            self.present(alert, animated: true, completion: nil)
-//        }
-//    }
+    private func logout() {
+        let user = viewModel.user
+        
+        if user.isCurrentUser {
+            let alert = UIAlertController(title: nil, message: "Are you sure you want to log out?", preferredStyle: .actionSheet)
+            alert.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
+                self.dismiss(animated: true) {
+                    self.delegate?.handleLogout()
+                }
+            }))
+            alert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+            self.present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 // MARK: - UITableViewDataSource, UITableViewDelegate
@@ -166,9 +178,14 @@ extension CurrentProfileController: UITableViewDataSource, UITableViewDelegate {
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let controller = EditProfileController()
-        
-        navigationController?.pushViewController(controller, animated: true)
+        if indexPath.row == 3 {
+            logout()
+        } else {
+            let controller = EditProfileController()
+            controller.viewModel.user = viewModel.user
+            
+            navigationController?.pushViewController(controller, animated: true)
+        }
     }
 }
 
@@ -183,7 +200,7 @@ extension CurrentProfileController: UIGestureRecognizerDelegate {
 // MARK: - buttonMaker func
 
 extension CurrentProfileController {
-    fileprivate func buttonMaker(title: String, titleColor: UIColor) -> UIButton {
+    private func buttonMaker(title: String, titleColor: UIColor) -> UIButton {
         let button = UIButton(type: .system)
         button.setTitle(title, for: .normal)
         button.setTitleColor(titleColor, for: .normal)

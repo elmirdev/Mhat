@@ -155,10 +155,10 @@ extension UIViewController {
         //navigationController?.navigationBar.overrideUserInterfaceStyle = .light
     }
     
-    func showError(_ errorMessage: String) {
-        let alert = UIAlertController(title: "Error", message: errorMessage, preferredStyle: .alert)
+    func showAlert(title: String, errorMessage: String, completion: (() -> Void)?) {
+        let alert = UIAlertController(title: title, message: errorMessage, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: "Ok", style: .cancel, handler: nil))
-        present(alert, animated: true, completion: nil)
+        present(alert, animated: true, completion: completion)
     }
 }
 

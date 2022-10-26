@@ -43,9 +43,10 @@ class AuthService {
     
     func createUser(profileImage: UIImage,fullname: String, username: String, completion: ((Error?) -> Void)?) {
         guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
         let filename = NSUUID().uuidString
-        let ref = Storage.storage().reference(withPath: "/profile_images/\(filename)")
+        let ref = Storage.storage().reference(withPath: "/profile_images/\(currentUid).jpg")
         
         ref.putData(imageData, metadata: nil) { meta, error in
             if let error = error {
@@ -55,7 +56,7 @@ class AuthService {
             
             ref.downloadURL { url, error in
                 guard let profileImageUrl = url?.absoluteString else { return }
-                guard let currentUid = Auth.auth().currentUser?.uid else { return }
+                
                 guard let phoneNumber = Auth.auth().currentUser?.phoneNumber else { return }
                 
                 let data = ["phoneNumber": phoneNumber,
@@ -70,6 +71,37 @@ class AuthService {
                     }
                 }
                 
+            }
+        }
+    }
+    
+    func updateUser(profileImage: UIImage, fullname: String, username: String, completion: ((Error?) -> Void)?) {
+        guard let imageData = profileImage.jpegData(compressionQuality: 0.3) else { return }
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
+        let ref = Storage.storage().reference(withPath: "/profile_images/\(currentUid).jpg")
+        
+        ref.putData(imageData, metadata: nil) { meta, error in
+            if let error {
+                completion!(error)
+                return
+            }
+            ref.downloadURL { url, error in
+                if let error {
+                    completion!(error)
+                    return
+                }
+                guard let profileImageUrl = url?.absoluteString else { return }
+                
+                let data = ["fullname": fullname,
+                            "username": username,
+                            "profileImageUrl": profileImageUrl] as [String: Any]
+                
+                COLLECTION_USERS.document(currentUid).setData(data, merge: true) { _ in
+                    COLLECTION_FRIENDS.document(currentUid).collection("friends").document(currentUid).setData(data, merge: true) { _ in
+                        COLLECTION_USERSNAMES.document(username).setData(["uid": currentUid] as [String: Any], merge: true, completion: completion)
+                    }
+                }
             }
         }
     }
